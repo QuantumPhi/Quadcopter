@@ -1,7 +1,12 @@
 Some random links I found lying around from February.
 
-https://www.sparkfun.com/products/10121
-http://www.hobbyking.com/hobbyking/store/__27033__multiwii_328p_flight_controller_w_ftdi_dsm2_port.html
+| Part | Links |
+| ------------- | ------------- |
+| Flight Controller | [MultiWii 328P Flight Controller](http://www.hobbyking.com/hobbyking/store/__27033__multiwii_328p_flight_controller_w_ftdi_dsm2_port.html) |
+| Accelerometer/Gyro | [IMU Digital Combo Board - ITG3200/ADXL345](https://www.sparkfun.com/products/10121) |
+| Propeller | [10x2.3SF](http://www.apcprop.com/ProductDetails.asp?ProductCode=LP10038SF) |
+---
+
 http://www.apcprop.com/ProductDetails.asp?ProductCode=LP10038SF
 http://www.multiwii.com/
 http://www.hobbyking.com/hobbyking/store/__22397__Turnigy_Talon_Carbon_Fiber_Quadcopter_Frame.html
