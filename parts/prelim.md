@@ -14,6 +14,7 @@ Some random links I found lying around from February.
 | | [Turnigy Plush 30amp](http://www.hobbyking.com/hobbyking/store/uh_viewItem.asp?idProduct=2164) |
 | Antenna | [XBee Pro 63mW Wire Antenna](https://www.sparkfun.com/products/10421) |
 | | [XBee Explorer USB](https://www.sparkfun.com/products/8687)
+| | [XBee Shield](https://www.sparkfun.com/products/10854) |
 ---
 
 [Someone's build](http://aeroquad.com/showthread.php?1655-Quadcopter-build).
