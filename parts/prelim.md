@@ -20,5 +20,3 @@ Preliminary parts list:
 | Camera | [PropCAM-DB](http://www.parallax.com/product/28320) |
 
 ---
-
-[Someone's build](http://aeroquad.com/showthread.php?1655-Quadcopter-build).
