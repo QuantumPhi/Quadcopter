@@ -17,6 +17,7 @@ Preliminary parts list:
 | Antenna | [XBee Pro 63mW Wire Antenna](https://www.sparkfun.com/products/10421) |
 | | [XBee Explorer USB](https://www.sparkfun.com/products/8687)
 | | [XBee Shield](https://www.sparkfun.com/products/10854) |
+| Camera | [PropCAM-DB](http://www.parallax.com/product/28320) |
 
 ---
 
