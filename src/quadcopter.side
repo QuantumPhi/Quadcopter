@@ -1,0 +1,12 @@
+quadcopter.c
+-I C:/Users/Shreyas/Documents/SimpleIDE/Learn/Simple Libraries/Protocol/libsimplei2c
+-L C:/Users/Shreyas/Documents/SimpleIDE/Learn/Simple Libraries/Protocol/libsimplei2c
+>compiler=C
+>memtype=cmm main ram compact
+>optimize=-Os
+>-m32bit-doubles
+>-fno-exceptions
+>defs::-std=c99
+>-lm
+>linker::-lsimplei2c
+>BOARD::ACTIVITYBOARD
