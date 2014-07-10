@@ -3,17 +3,6 @@
 #include <propeller.h> 
 #include <stdio.h> 
 
-#define PIN_IMU_SCL 1
-#define PIN_IMU_SDA 0
-
-#define GYRO_WRITE 0xD0
-#define GYRO_READ  0xD1
-#define GYRO_REGISTER 0x1E
-
-#define ACCEL_WRITE 0xA6
-#define ACCEL_READ  0xA7
-#define ACCEL_REGISTER 0
-
 #define DLPF_FS     0x16
 #define DLPF_CFG_0  (1<<0)
 #define DLPF_CFG_1  (1<<1)
@@ -30,6 +19,22 @@
 #define PWR_MGM     0x3E
 #define PWR_MGM_CLK_SEL_0   (1<<0)
 
+#define PIN_IMU_SDA 0
+#define PIN_IMU_SCL 1
+
+#define GYRO_ADDR 0xD0 // Write address.
+#define GYRO_REG_X 0x1D // X register.
+#define GYRO_REG_Y 0x1F // Y register.
+#define GYRO_REG_Z 0x21 // Z register.
+
+#define ACCEL_WRITE 0xA6
+#define ACCEL_REGISTER 0
+
+int readFromRegister(i2c*, int, int);
+void writeToRegister(i2c*, int, int, int);
+int readValue(i2c*, int, int);
+int combine(int, int);
+
 int main()
 {
   i2c imu;
@@ -39,35 +44,79 @@ int main()
   printf("Opening.\n");
   i2c_open(&imu, PIN_IMU_SCL, PIN_IMU_SDA, 0);
   
-  /*
   //Set internal clock to 1kHz with 42Hz LPF and Full Scale to 3 for proper operation
-  i2c_writeByte(&imu, DLPF_FS, DLPF_FS_SEL_0|DLPF_FS_SEL_1|DLPF_CFG_0); // 0x16 25
+  writeToRegister(&imu, GYRO_ADDR, DLPF_FS, DLPF_FS_SEL_0|DLPF_FS_SEL_1|DLPF_CFG_0); // 0x16 25
 
   //Set sample rate divider for 100 Hz operation
-  i2c_writeByte(&imu, SMPLRT_DIV, 9);   //Fsample = Fint / (divider + 1) where Fint is 1kHz // 0x15 9
+  writeToRegister(&imu, GYRO_ADDR, SMPLRT_DIV, 9);   //Fsample = Fint / (divider + 1) where Fint is 1kHz // 0x15 9
 
   //Setup the interrupt to trigger when new data is ready.
-  i2c_writeByte(&imu, INT_CFG, INT_CFG_RAW_RDY_EN | INT_CFG_ITG_RDY_EN); // 0x17 5
+  //writeToRegister(&imu, GYRO_ADDR, INT_CFG, INT_CFG_RAW_RDY_EN | INT_CFG_ITG_RDY_EN); // 0x17 5
 
   //Select X gyro PLL for clock source
-  i2c_writeByte(&imu, PWR_MGM, PWR_MGM_CLK_SEL_0);
-  */
-
+  writeToRegister(&imu, GYRO_ADDR, PWR_MGM, PWR_MGM_CLK_SEL_0);
+  
   while(1)
   {
     waitcnt(CNT + CLKFREQ/10);
     
-    i2c_start(&imu);
-    i2c_writeByte(&imu, GYRO_WRITE);
-    i2c_writeByte(&imu, GYRO_REGISTER);
-    i2c_start(&imu);
-    i2c_writeByte(&imu, GYRO_READ);
-    int read1 = i2c_readByte(&imu, 0);
-    int read2 = i2c_readByte(&imu, 0);
-    i2c_stop(&imu);
+    int gx = readValue(&imu, GYRO_ADDR, GYRO_REG_X);
+    int gy = readValue(&imu, GYRO_ADDR, GYRO_REG_Y);
+    int gz = readValue(&imu, GYRO_ADDR, GYRO_REG_Z);
 
-    printf("%d %d\n", read1, read2);
+    printf("%6d %6d %6d\n", gx, gy, gz);
   }
+}
+
+int readValue(i2c* bus, int address, int regAddr)
+{
+  i2c_start(bus);
+  i2c_writeByte(bus, address);
+  i2c_writeByte(bus, regAddr);
+  i2c_start(bus);
+  i2c_writeByte(bus, address+1);
+
+  int b1 = i2c_readByte(bus, 0);
+  int b2 = i2c_readByte(bus, 1);
+
+  int val = combine(b1, b2);
+
+  i2c_stop(bus);
+
+  return val;
+}
+
+int readFromRegister(i2c* bus, int address, int regAddr)
+{
+  i2c_start(bus);
+  i2c_writeByte(bus, address);
+  i2c_writeByte(bus, regAddr);
+  i2c_start(bus);
+  i2c_writeByte(bus, address+1);
+
+  int val = i2c_readByte(bus, 1);
+
+  i2c_stop(bus);
+
+  return val;
+}
+
+int combine(int h, int l) {
+  int ret = 0;
+  ret <<= 8;
+  ret |= (int)h & 0xFF;
+  ret <<= 8;
+  ret |= (int)l & 0xFF;
+  return ret;
+}
+
+void writeToRegister(i2c* bus, int address, int regAddr, int val)
+{
+  i2c_start(bus);
+  i2c_writeByte(bus, address+1);
+  i2c_writeByte(bus, regAddr);
+  i2c_writeByte(bus, val);
+  i2c_stop(bus);
 }
 
 /*
