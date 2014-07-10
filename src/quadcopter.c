@@ -17,7 +17,6 @@
 #define INT_CFG     0x17
 
 #define PWR_MGM     0x3E
-#define PWR_MGM_CLK_SEL_0   (1<<0)
 
 #define PIN_IMU_SDA 0
 #define PIN_IMU_SCL 1
@@ -39,22 +38,19 @@ int main()
 {
   i2c imu;
 
-  waitcnt(CNT + CLKFREQ); 
+  // Wait for output stream to open.
+  waitcnt(CNT + CLKFREQ);
   
-  printf("Opening.\n");
   i2c_open(&imu, PIN_IMU_SCL, PIN_IMU_SDA, 0);
   
-  //Set internal clock to 1kHz with 42Hz LPF and Full Scale to 3 for proper operation
-  writeToRegister(&imu, GYRO_ADDR, DLPF_FS, DLPF_FS_SEL_0|DLPF_FS_SEL_1|DLPF_CFG_0); // 0x16 25
-
-  //Set sample rate divider for 100 Hz operation
-  writeToRegister(&imu, GYRO_ADDR, SMPLRT_DIV, 9);   //Fsample = Fint / (divider + 1) where Fint is 1kHz // 0x15 9
-
-  //Setup the interrupt to trigger when new data is ready.
-  //writeToRegister(&imu, GYRO_ADDR, INT_CFG, INT_CFG_RAW_RDY_EN | INT_CFG_ITG_RDY_EN); // 0x17 5
-
-  //Select X gyro PLL for clock source
-  writeToRegister(&imu, GYRO_ADDR, PWR_MGM, PWR_MGM_CLK_SEL_0);
+  // 22 -> 11011  Set internal clock and scale.
+  // 21 -> 9      Set sample rate.
+  // 23 -> 101    Trigger interrupt when new data is ready (extra int pins).
+  // 62 -> 1      Set clock source.
+  writeToRegister(&imu, GYRO_ADDR, 0x16, 0x1A);
+  writeToRegister(&imu, GYRO_ADDR, 0x15, 0x09);
+  writeToRegister(&imu, GYRO_ADDR, 0x17, 0x05);
+  writeToRegister(&imu, GYRO_ADDR, 0x3E, 1);
   
   while(1)
   {
@@ -118,13 +114,3 @@ void writeToRegister(i2c* bus, int address, int regAddr, int val)
   i2c_writeByte(bus, val);
   i2c_stop(bus);
 }
-
-/*
-1. Send a start sequence
-2. Send 0xC0 ( I2C address of the CMPS03 with the R/W bit low (even address)
-3. Send 0x01 (Internal address of the bearing register)
-4. Send a start sequence again (repeated start)
-5. Send 0xC1 ( I2C address of the CMPS03 with the R/W bit high (odd address)
-6. Read data byte from CMPS03
-7. Send the stop sequence.
-*/
