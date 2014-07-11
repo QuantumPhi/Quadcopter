@@ -13,7 +13,8 @@ On Quadcopter
 | Battery | [Zippy Flightmax 3000mAh](http://www.hobbyking.com/hobbyking/store/__8851__ZIPPY_Flightmax_3000mAh_3S1P_20C.html) | $15 | 239g |
 | Speed Controller | [Turnigy Multistar 20A 2-4S](http://www.hobbyking.com/hobbyking/store/__25364__Turnigy_Multistar_20_Amp_Multi_rotor_Brushless_ESC_2_4S.html) | $10 x 4 | 25g x 4 |
 | Transmitter | [XBee 1mW Wire Antenna](https://www.sparkfun.com/products/8665) | $23 | 5g |
-| Total | | $178 | 781g / 694g |
+| | [XBee Explorer Regulated](https://www.sparkfun.com/products/11373) | $10 | 5g |
+| Total | | $188 | 786g / 699g |
 
 ---
 Not on Quadcopter
@@ -25,4 +26,4 @@ Not on Quadcopter
 
 ---
 
-Total: $226
+Total: $236
