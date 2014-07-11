@@ -26,5 +26,3 @@ Not on Quadcopter
 ---
 
 Total: $226
-
----
