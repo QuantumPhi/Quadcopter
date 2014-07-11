@@ -21,7 +21,7 @@ Not on Quadcopter
 | Part | Source | Price |
 | ------------- | ------------- | ------------- |
 | Transmitter | [XBee 1mW Wire Antenna](https://www.sparkfun.com/products/8665) | $23 |
-| Transmitter Controller | [XBee Explorer USB](https://www.sparkfun.com/products/8687) | 25$ |
+| Transmitter Controller | [XBee Explorer USB](https://www.sparkfun.com/products/8687) | $25 |
 
 ---
 
