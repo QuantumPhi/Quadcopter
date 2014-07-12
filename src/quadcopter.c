@@ -37,12 +37,12 @@ int main()
   // 62 -> 1      Set clock source.
   writeToRegister(&imu, GYRO_ADDR, 0x16, 0x1A);
   writeToRegister(&imu, GYRO_ADDR, 0x15, 0x09);
-  writeToRegister(&imu, GYRO_ADDR, 0x17, 0x05);
+  //writeToRegister(&imu, GYRO_ADDR, 0x17, 0x05);
   writeToRegister(&imu, GYRO_ADDR, 0x3E, 1);
   
   // Accel initialization.
   // 45 -> 1000  Set the mode to MEASURE mode.
-  // 49 -> 01    Set the data range. 00->2, 01->4, 10->8, 11->16 (+- g).
+  // 49 -> 01    Set the data range. 00->2, 01->4, 10->8, 11->16 (+- g).;
   writeToRegister(&imu, ACCL_ADDR, 0x2D, 0x10);
   writeToRegister(&imu, ACCL_ADDR, 0x31, 1);
 
@@ -50,15 +50,16 @@ int main()
   {
     waitcnt(CNT + CLKFREQ/10);
     
-    int gx = readValue(&imu, GYRO_ADDR, GYRO_REG_X);
-    int gy = readValue(&imu, GYRO_ADDR, GYRO_REG_Y);
-    int gz = readValue(&imu, GYRO_ADDR, GYRO_REG_Z);
+    float gx = readValue(&imu, GYRO_ADDR, GYRO_REG_X)/14.375;
+    float gy = readValue(&imu, GYRO_ADDR, GYRO_REG_Y)/14.375;
+    float gz = readValue(&imu, GYRO_ADDR, GYRO_REG_Z)/14.375;
 
     int ax = readValue(&imu, ACCL_ADDR, ACCL_REG_X);
     int ay = readValue(&imu, ACCL_ADDR, ACCL_REG_Y);
     int az = readValue(&imu, ACCL_ADDR, ACCL_REG_Z);
 
-    printf("%6d %6d %6d\n", ax, ay, az);
+    printf("G: %6d %6d %6d\n", gx, gy, gz);
+    //printf("A: %6d %6d %6d\n", ax, ay, az);
   }
 }
 
