@@ -43,23 +43,30 @@ int main()
   // Accel initialization.
   // 45 -> 1000  Set the mode to MEASURE mode.
   // 49 -> 01    Set the data range. 00->2, 01->4, 10->8, 11->16 (+- g).;
-  writeToRegister(&imu, ACCL_ADDR, 0x2D, 0x10);
   writeToRegister(&imu, ACCL_ADDR, 0x31, 1);
-
+  //writeToRegister(&imu, ACCL_ADDR, 0x38, 0x80);
+  //writeToRegister(&imu, ACCL_ADDR, 0x2E, 0x00);
+  writeToRegister(&imu, ACCL_ADDR, 0x2D, 0);
+  writeToRegister(&imu, ACCL_ADDR, 0x2D, 16);
+  writeToRegister(&imu, ACCL_ADDR, 0x2D, 8);
+  
+  printf("%d\n", readFromRegister(&imu, ACCL_ADDR, 0));
+  
   while(1)
   {
     waitcnt(CNT + CLKFREQ/10);
     
-    signed short gx = (signed short) readValue(&imu, GYRO_ADDR, GYRO_REG_X);///14.375;
-    signed short gy = (signed short) readValue(&imu, GYRO_ADDR, GYRO_REG_Y);///14.375;
-    signed short gz = (signed short) readValue(&imu, GYRO_ADDR, GYRO_REG_Z);///14.375;
+    //signed short gx = (signed short) readValue(&imu, GYRO_ADDR, GYRO_REG_X);///14.375;
+    //signed short gy = (signed short) readValue(&imu, GYRO_ADDR, GYRO_REG_Y);///14.375;
+    //signed short gz = (signed short) readValue(&imu, GYRO_ADDR, GYRO_REG_Z);///14.375;
 
-    int ax = readValue(&imu, ACCL_ADDR, ACCL_REG_X);
-    int ay = readValue(&imu, ACCL_ADDR, ACCL_REG_Y);
-    int az = readValue(&imu, ACCL_ADDR, ACCL_REG_Z);
+    signed short ax = (signed short) readValue(&imu, ACCL_ADDR, ACCL_REG_X);
+    signed short ay = (signed short) readValue(&imu, ACCL_ADDR, ACCL_REG_Y);
+    signed short az = (signed short) readValue(&imu, ACCL_ADDR, ACCL_REG_Z);
 
-    printf("G: %6d %6d %6d\n", gx, gy, gz);
-    //printf("A: %6d %6d %6d\n", ax, ay, az);
+    //printf("G: %6d %6d %6d\n", gx, gy, gz);
+    printf("A: %6d %6d %6d\n", ax, ay, az);
+    //printf("\n");
   }
 }
 
@@ -69,12 +76,14 @@ unsigned short readValue(i2c* bus, int address, int regAddr)
   i2c_writeByte(bus, address);
   i2c_writeByte(bus, regAddr);
   i2c_start(bus);
-  i2c_writeByte(bus, address+1);
+  printf("ACK:%d",i2c_writeByte(bus, address+1));
 
   char b1 = i2c_readByte(bus, 0);
   char b2 = i2c_readByte(bus, 1);
 
   unsigned short val = combine(b1, b2);
+
+  printf("%3d %3d %6d\n", b1, b2, val);
 
   i2c_stop(bus);
 
