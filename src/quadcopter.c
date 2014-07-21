@@ -38,7 +38,7 @@ int main()
   writeToRegister(&imu, GYRO_ADDR, 0x16, 0x1A);
   writeToRegister(&imu, GYRO_ADDR, 0x15, 0x09);
   writeToRegister(&imu, GYRO_ADDR, 0x17, 0x05);
-  writeToRegister(&imu, GYRO_ADDR, 0x3E, 1);
+  writeToRegister(&imu, GYRO_ADDR, 0x3E, 1); //-25 12 249
   
   // Accel initialization.
   // 45 -> 1000, 100  Wake it from sleep, keep it awake.
@@ -46,9 +46,14 @@ int main()
   writeToRegister(&imu, ACCL_ADDR, 0x2D, 16);
   writeToRegister(&imu, ACCL_ADDR, 0x2D, 8);
   writeToRegister(&imu, ACCL_ADDR, 0x31, 0);
+  writeToRegister(&imu, ACCL_ADDR, 0x1E, -25/-4);
+  writeToRegister(&imu, ACCL_ADDR, 0x1F, 12/-4);
+  writeToRegister(&imu, ACCL_ADDR, 0x20, 249/4);
   
   waitcnt(CNT + CLKFREQ/10);
-  printf("%d\n",readFromRegister(&imu, ACCL_ADDR, 0x2D));
+  printf("%d ",(signed short) readFromRegister(&imu, ACCL_ADDR, 0x1E));
+  printf("%d ",(signed short)readFromRegister(&imu, ACCL_ADDR, 0x1F));
+  printf("%d\n",(signed short)readFromRegister(&imu, ACCL_ADDR, 0x20));
   
   while(1)
   {
