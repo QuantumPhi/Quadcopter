@@ -16,10 +16,10 @@
 #define ACCL_REG_Y 0x34 // Y register.
 #define ACCL_REG_Z 0x36 // Z register.
 
-int readFromRegister(i2c*, int, int);
+unsigned short readFromRegister(i2c*, int, int);
 void writeToRegister(i2c*, int, int, int);
-int readValue(i2c*, int, int);
-int combine(int, int);
+unsigned short readValue(i2c*, int, int);
+unsigned short combine(char, char);
 
 int main()
 {
@@ -50,9 +50,9 @@ int main()
   {
     waitcnt(CNT + CLKFREQ/10);
     
-    float gx = readValue(&imu, GYRO_ADDR, GYRO_REG_X)/14.375;
-    float gy = readValue(&imu, GYRO_ADDR, GYRO_REG_Y)/14.375;
-    float gz = readValue(&imu, GYRO_ADDR, GYRO_REG_Z)/14.375;
+    signed short gx = (signed short) readValue(&imu, GYRO_ADDR, GYRO_REG_X);///14.375;
+    signed short gy = (signed short) readValue(&imu, GYRO_ADDR, GYRO_REG_Y);///14.375;
+    signed short gz = (signed short) readValue(&imu, GYRO_ADDR, GYRO_REG_Z);///14.375;
 
     int ax = readValue(&imu, ACCL_ADDR, ACCL_REG_X);
     int ay = readValue(&imu, ACCL_ADDR, ACCL_REG_Y);
@@ -63,7 +63,7 @@ int main()
   }
 }
 
-int readValue(i2c* bus, int address, int regAddr)
+unsigned short readValue(i2c* bus, int address, int regAddr)
 {
   i2c_start(bus);
   i2c_writeByte(bus, address);
@@ -71,17 +71,17 @@ int readValue(i2c* bus, int address, int regAddr)
   i2c_start(bus);
   i2c_writeByte(bus, address+1);
 
-  int b1 = i2c_readByte(bus, 0);
-  int b2 = i2c_readByte(bus, 1);
+  char b1 = i2c_readByte(bus, 0);
+  char b2 = i2c_readByte(bus, 1);
 
-  int val = combine(b1, b2);
+  unsigned short val = combine(b1, b2);
 
   i2c_stop(bus);
 
   return val;
 }
 
-int readFromRegister(i2c* bus, int address, int regAddr)
+unsigned short readFromRegister(i2c* bus, int address, int regAddr)
 {
   i2c_start(bus);
   i2c_writeByte(bus, address);
@@ -89,19 +89,19 @@ int readFromRegister(i2c* bus, int address, int regAddr)
   i2c_start(bus);
   i2c_writeByte(bus, address+1);
 
-  int val = i2c_readByte(bus, 1);
+  unsigned short val = i2c_readByte(bus, 1);
 
   i2c_stop(bus);
 
   return val;
 }
 
-int combine(int h, int l) {
-  int ret = 0;
+unsigned short combine(char h, char l) {
+  unsigned short ret = 0;
   ret <<= 8;
-  ret |= (int)h & 0xFF;
+  ret |= (char)h & 0xFF;
   ret <<= 8;
-  ret |= (int)l & 0xFF;
+  ret |= (char)l & 0xFF;
   return ret;
 }
 
