@@ -40,3 +40,12 @@ void imuUpdate()
   ay = (signed short) readValue(&imu, ACCL_ADDR, ACCL_REG_Y, 1);
   az = (signed short) readValue(&imu, ACCL_ADDR, ACCL_REG_Z, 1);
 }
+
+void imuRun()
+{
+  while(1)
+  {
+    waitcnt(CNT + CLKFREQ/10);
+    imuUpdate();
+  }
+}

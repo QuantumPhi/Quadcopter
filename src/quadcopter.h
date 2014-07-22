@@ -16,12 +16,12 @@
 #define ACCL_REG_Y 0x34
 #define ACCL_REG_Z 0x36
 
-signed short gx;
-signed short gy;
-signed short gz;
-signed short ax;
-signed short ay;
-signed short az;
+volatile signed short gx;
+volatile signed short gy;
+volatile signed short gz;
+volatile signed short ax;
+volatile signed short ay;
+volatile signed short az;
 
 unsigned short readFromRegister(i2c*, int, int);
 void writeToRegister(i2c*, int, int, int);
@@ -30,3 +30,4 @@ unsigned short combine(char, char);
 
 void imuInit();
 void imuUpdate();
+void imuRun();
