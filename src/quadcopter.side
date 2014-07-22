@@ -1,6 +1,9 @@
 quadcopter.c
 -I C:/Users/Shreyas/Documents/SimpleIDE/Learn/Simple Libraries/Protocol/libsimplei2c
 -L C:/Users/Shreyas/Documents/SimpleIDE/Learn/Simple Libraries/Protocol/libsimplei2c
+imu.c
+i2chelper.c
+quadcopter.h
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os

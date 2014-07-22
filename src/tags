@@ -1,0 +1,20 @@
+!_TAG_FILE_FORMAT	1	/original ctags format/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+main	E:/GitHub/Quadcopter/src/quadcopter.c	/^int main()$/
+imu	E:/GitHub/Quadcopter/src/imu.c	/^i2c imu;$/
+gx	E:/GitHub/Quadcopter/src/imu.c	/^signed short gx;$/
+gy	E:/GitHub/Quadcopter/src/imu.c	/^signed short gy;$/
+gz	E:/GitHub/Quadcopter/src/imu.c	/^signed short gz;$/
+ax	E:/GitHub/Quadcopter/src/imu.c	/^signed short ax;$/
+ay	E:/GitHub/Quadcopter/src/imu.c	/^signed short ay;$/
+az	E:/GitHub/Quadcopter/src/imu.c	/^signed short az;$/
+imuInit	E:/GitHub/Quadcopter/src/imu.c	/^void imuInit()$/
+imuUpdate	E:/GitHub/Quadcopter/src/imu.c	/^void imuUpdate()$/
+readValue	E:/GitHub/Quadcopter/src/i2chelper.c	/^unsigned short readValue(i2c* bus, int address, int regAddr, int sb)$/
+readFromRegister	E:/GitHub/Quadcopter/src/i2chelper.c	/^unsigned short readFromRegister(i2c* bus, int address, int regAddr)$/
+combine	E:/GitHub/Quadcopter/src/i2chelper.c	/^unsigned short combine(char h, char l) {$/
+writeToRegister	E:/GitHub/Quadcopter/src/i2chelper.c	/^void writeToRegister(i2c* bus, int address, int regAddr, int val)$/
