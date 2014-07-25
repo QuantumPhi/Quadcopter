@@ -9,8 +9,9 @@ int main()
   waitcnt(CNT + CLKFREQ); // Wait one second.
 
   imuInit();
-  cog_run(&imuRun, 0);
-
+  cog_run(&imuRun, 1);
+  //cog_run(&xbeeRun, 2);
+  xbeeRun();
   signed short gx,gy,gz,ax,ay,az;
 
   while(1)

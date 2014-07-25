@@ -39,6 +39,8 @@ void imuInit()
   //writeToRegister(&imu, ACCL_ADDR, 0x20, 249/4);  249
 }
 
+unsigned long last;
+
 void imuUpdate()
 {
   while(lock==1);
@@ -50,7 +52,31 @@ void imuUpdate()
   ax = (signed short) readValue(&imu, ACCL_ADDR, ACCL_REG_X, 1);
   ay = (signed short) readValue(&imu, ACCL_ADDR, ACCL_REG_Y, 1);
   az = (signed short) readValue(&imu, ACCL_ADDR, ACCL_REG_Z, 1);
+
+  int max = computePID(ax, 0);
+
   lock = 0;
+}
+
+unsigned long lastTime;
+double errSum, lastErr;
+double kp, ki, kd = 1;
+int computePID(int actualVal, int expectedVal)
+{
+  double time = 10;
+
+  /*Compute all the working error variables*/
+  double error = expectedVal - actualVal;
+  errSum += (error * time);
+  double dErr = (error - lastErr) / time;
+  
+  /*Compute PID Output*/
+  int output = kp * error + ki * errSum + kd * dErr;
+  
+  /*Remember some variables for next time*/
+  lastErr = error;
+
+  return output;
 }
 
 void getImuData(signed short* ngx, signed short* ngy, signed short* ngz, signed short* nax, signed short* nay, signed short* naz)
@@ -71,6 +97,7 @@ void imuRun()
 {
   while(1)
   {
+    last = CNT;
     waitcnt(CNT + CLKFREQ/10);
     imuUpdate();
   }
