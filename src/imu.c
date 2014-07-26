@@ -58,22 +58,21 @@ void imuUpdate()
   lock = 0;
 }
 
-unsigned long lastTime;
-double errSum, lastErr;
-double kp, ki, kd = 1;
+double errSum = 0;
+double lastErr = 0;
+double kp = 1;
+double ki = 1;
+double kd = 1;
 int computePID(int actualVal, int expectedVal)
 {
   double time = 10;
-
-  /*Compute all the working error variables*/
+  
   double error = expectedVal - actualVal;
   errSum += (error * time);
   double dErr = (error - lastErr) / time;
   
-  /*Compute PID Output*/
   int output = kp * error + ki * errSum + kd * dErr;
   
-  /*Remember some variables for next time*/
   lastErr = error;
 
   return output;
