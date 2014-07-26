@@ -18,6 +18,14 @@ void xbeeRun()
 {
   while(1)
   {
+    xbeeGetByte();
+  }
+}
+
+int xbeeGetByte()
+{
+  while(1) 
+  {
     waitcnt(CNT + CLKFREQ/9600);
     int current = input(PIN_XBEE_IN);
 
@@ -34,7 +42,7 @@ void xbeeRun()
         dataCounter = 0;
       }
     }
-    
+
     if (dataCounter == 8)
     {
       if (!current)
@@ -44,12 +52,12 @@ void xbeeRun()
       }
       else
       {
-        // Done.
-        printf("%d\n", currentByte);
+        break;
       }
     }
 
     currentByte = (currentByte<<1)|(current<<dataCounter);
     dataCounter++;
   }
+  return currentByte;
 }

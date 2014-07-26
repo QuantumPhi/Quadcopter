@@ -12,6 +12,7 @@ int main()
   cog_run(&imuRun, 1);
   //cog_run(&xbeeRun, 2);
   //xbeeRun();
+  printf("%d\n", xbeeGetByte());
   signed short gx,gy,gz,ax,ay,az;
 
   while(1)
