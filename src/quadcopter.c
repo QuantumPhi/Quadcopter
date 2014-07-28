@@ -12,15 +12,15 @@ int main()
 
   imuInit();
   cog_run(&imuRun, 1);
-  waitcnt(CNT + CLKFREQ/20);
   //cog_run(&xbeeRun, 2);
   //xbeeRun();
   
-  //for (int i=0;i<150;i++)
-  //{
-  //  xbeeSendByte(57);
-  //  waitcnt(CNT + CLKFREQ/2);
-  //}
+  for (int i=0;i<150;i++)
+  {
+    printf("%d\n", i);
+    xbeeSendByte(i);
+    waitcnt(CNT + CLKFREQ/2);
+  }
 
   while(1)
     printf("%d\n", xbeeGetByte());

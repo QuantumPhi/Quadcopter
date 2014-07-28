@@ -19,6 +19,8 @@
 #define PIN_XBEE_IN  30
 #define PIN_XBEE_OUT 29
 
+#define XBEE_BAUD_RATE 9600
+
 unsigned short readFromRegister(i2c*, int, int);
 void writeToRegister(i2c*, int, int, int);
 unsigned short readValue(i2c*, int, int, int);
