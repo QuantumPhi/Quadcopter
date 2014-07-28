@@ -31,4 +31,4 @@ void imuRun();
 void getImuData(signed short*, signed short*, signed short*, signed short*, signed short*, signed short*);
 
 void xbeeRun();
-unsigned char xbeeGetByte();
+unsigned int xbeeGetByte();

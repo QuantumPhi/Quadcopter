@@ -22,23 +22,22 @@ void xbeeRun()
   }
 }
 
-unsigned char xbeeGetByte()
+unsigned int xbeeGetByte()
 {
   int current = 1;
 
   while(current)
   {
-    waitcnt(CNT + CLKFREQ/9600);
     current = input(PIN_XBEE_IN);
   }
 
-  unsigned char currentByte = 0;
+  unsigned int currentByte = 0;
 
-  for (int i=0;i<8;i++)
+  for (int i=0;i<7;i++)
   {
     waitcnt(CNT + CLKFREQ/9600);
     current = input(PIN_XBEE_IN);
-    currentByte = currentByte<<1 + current;
+    currentByte += current<<i;
   }
 
   return currentByte;
