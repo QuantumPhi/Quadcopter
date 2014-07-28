@@ -12,15 +12,6 @@ void xbeeInit()
 volatile int transmitting = 0;
 volatile int currentByte;
 volatile int dataCounter;
-//volatile byte* data;
-
-void xbeeRun()
-{
-  while(1)
-  {
-    xbeeGetByte();
-  }
-}
 
 unsigned int xbeeGetByte()
 {
