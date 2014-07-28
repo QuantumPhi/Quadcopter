@@ -32,7 +32,7 @@ int computePID(int, int);
 void imuRun();
 void getImuData(signed short*, signed short*, signed short*, signed short*, signed short*, signed short*);
 
-void xbeeRun();
+void xbeeInit();
 unsigned int xbeeGetByte();
 void xbeeSendByte(int);
 

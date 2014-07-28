@@ -6,12 +6,10 @@
 
 void xbeeInit()
 {
-  // init
+  high(PIN_XBEE_OUT);
 }
 
-volatile int transmitting = 0;
-volatile int currentByte;
-volatile int dataCounter;
+volatile unsigned int data;
 
 unsigned int xbeeGetByte()
 {
