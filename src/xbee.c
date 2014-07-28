@@ -42,3 +42,20 @@ unsigned int xbeeGetByte()
 
   return currentByte;
 }
+
+void xbeeSendByte(int byte)
+{
+  waitcnt(CNT + CLKFREQ/9600);
+  low(PIN_XBEE_OUT);
+
+  for (int i=0;i<8;i++)
+  {
+    int bit = byte<<i;
+    if (bit)
+      high(PIN_XBEE_OUT);
+    else
+      low(PIN_XBEE_OUT);
+  }
+
+  high(PIN_XBEE_OUT);
+}

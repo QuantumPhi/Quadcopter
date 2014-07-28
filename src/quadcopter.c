@@ -8,12 +8,20 @@ int main()
 {
   waitcnt(CNT + CLKFREQ); // Wait one second. 157 0x35  141 0x15
 
+  high(PIN_XBEE_OUT);
+
   imuInit();
   cog_run(&imuRun, 1);
   waitcnt(CNT + CLKFREQ/20);
   //cog_run(&xbeeRun, 2);
   //xbeeRun();
   
+  for (int i=0;i<150;i++)
+  {
+    xbeeSendByte(57);
+    waitcnt(CNT + CLKFREQ/2);
+  }
+
   while(1)
     printf("%d\n", xbeeGetByte());
   
