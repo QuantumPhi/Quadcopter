@@ -5,6 +5,7 @@ imu.c
 i2chelper.c
 quadcopter.h
 xbee.c
+motor.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os
