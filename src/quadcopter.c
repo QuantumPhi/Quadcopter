@@ -16,11 +16,11 @@ int main()
   //cog_run(&xbeeRun, 2);
   //xbeeRun();
   
-  for (int i=0;i<150;i++)
-  {
-    xbeeSendByte(57);
-    waitcnt(CNT + CLKFREQ/2);
-  }
+  //for (int i=0;i<150;i++)
+  //{
+  //  xbeeSendByte(57);
+  //  waitcnt(CNT + CLKFREQ/2);
+  //}
 
   while(1)
     printf("%d\n", xbeeGetByte());

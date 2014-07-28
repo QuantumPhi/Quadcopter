@@ -1,3 +1,14 @@
+//0000 0110 -> 0000 0110
+//0000 1000 -> 0000 0000
+//1111 1111 -> 0111 1111
+//0011 1111 -> 0001 1111
+
+//0110 0000 -> 0110 0000
+//0001 0000 -> 0000 0000
+//1111 1111 -> 1111 1110
+//1111 1100 -> 1111 1000
+//0110 1001 -> 0111 0010
+
 #include "quadcopter.h"
 #include "simpletools.h"
 #include "simplei2c.h"
@@ -31,11 +42,14 @@ unsigned int xbeeGetByte()
     current = input(PIN_XBEE_IN);
   }
 
-  unsigned int currentByte = 0;
+  waitcnt(CNT + CLKFREQ/2400);
 
-  for (int i=0;i<7;i++)
+  unsigned int currentByte = 0;
+  unsigned long time = CNT;
+
+  for (int i=0;i<8;i++)
   {
-    waitcnt(CNT + CLKFREQ/9600);
+    waitcnt(time + CLKFREQ/1200 * (i+1));
     current = input(PIN_XBEE_IN);
     currentByte += current<<i;
   }
