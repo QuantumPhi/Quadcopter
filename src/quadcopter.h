@@ -16,8 +16,8 @@
 #define ACCL_REG_Y 0x34
 #define ACCL_REG_Z 0x36
 
-#define PIN_XBEE_IN  30
-#define PIN_XBEE_OUT 31
+#define PIN_XBEE_IN  31
+#define PIN_XBEE_OUT 30
 
 unsigned short readFromRegister(i2c*, int, int);
 void writeToRegister(i2c*, int, int, int);
@@ -31,4 +31,4 @@ void imuRun();
 void getImuData(signed short*, signed short*, signed short*, signed short*, signed short*, signed short*);
 
 void xbeeRun();
-int xbeeGetByte();
+unsigned char xbeeGetByte();

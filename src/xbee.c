@@ -22,9 +22,9 @@ void xbeeRun()
   }
 }
 
-int xbeeGetByte()
+unsigned char xbeeGetByte()
 {
-  while(1) 
+  while(1)
   {
     waitcnt(CNT + CLKFREQ/9600);
     int current = input(PIN_XBEE_IN);
@@ -48,7 +48,8 @@ int xbeeGetByte()
       if (!current)
       {
         // There's a problem
-        continue;
+        currentByte = -1;
+        break;
       }
       else
       {
