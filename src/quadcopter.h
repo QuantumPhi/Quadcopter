@@ -16,8 +16,8 @@
 #define ACCL_REG_Y 0x34
 #define ACCL_REG_Z 0x36
 
-#define PIN_XBEE_IN  31
-#define PIN_XBEE_OUT 30
+#define PIN_XBEE_IN  30
+#define PIN_XBEE_OUT 29
 
 unsigned short readFromRegister(i2c*, int, int);
 void writeToRegister(i2c*, int, int, int);

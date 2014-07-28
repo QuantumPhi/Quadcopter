@@ -24,41 +24,22 @@ void xbeeRun()
 
 unsigned char xbeeGetByte()
 {
-  while(1)
+  int current = 1;
+
+  while(current)
   {
     waitcnt(CNT + CLKFREQ/9600);
-    int current = input(PIN_XBEE_IN);
-
-    if (!transmitting)
-    {
-      if (current)
-      {
-        continue;
-      }
-      else
-      {
-        transmitting = 1;
-        currentByte = 0;
-        dataCounter = 0;
-      }
-    }
-
-    if (dataCounter == 8)
-    {
-      if (!current)
-      {
-        // There's a problem
-        currentByte = -1;
-        break;
-      }
-      else
-      {
-        break;
-      }
-    }
-
-    currentByte = (currentByte<<1)|(current<<dataCounter);
-    dataCounter++;
+    current = input(PIN_XBEE_IN);
   }
+
+  unsigned char currentByte = 0;
+
+  for (int i=0;i<8;i++)
+  {
+    waitcnt(CNT + CLKFREQ/9600);
+    current = input(PIN_XBEE_IN);
+    currentByte = currentByte<<1 + current;
+  }
+
   return currentByte;
 }
