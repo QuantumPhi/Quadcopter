@@ -9,7 +9,13 @@ void xbeeInit()
   high(PIN_XBEE_OUT);
 }
 
-volatile unsigned int data;
+volatile unsigned int lastCommand;
+
+void xbeeRun()
+{
+  while(1)
+    lastCommand = xbeeGetByte();
+}
 
 unsigned int xbeeGetByte()
 {
@@ -35,7 +41,7 @@ unsigned int xbeeGetByte()
   return currentByte;
 }
 
-void xbeeSendByte(int byte)
+void xbeeSendByte(unsigned int byte)
 {
   waitcnt(CNT + CLKFREQ/XBEE_BAUD_RATE);
   low(PIN_XBEE_OUT);

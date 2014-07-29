@@ -33,7 +33,8 @@ void imuRun();
 void getImuData(signed short*, signed short*, signed short*, signed short*, signed short*, signed short*);
 
 void xbeeInit();
+void xbeeRun();
 unsigned int xbeeGetByte();
-void xbeeSendByte(int);
+void xbeeSendByte(unsigned int);
 
 void motorRun(int, double);

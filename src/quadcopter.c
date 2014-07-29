@@ -6,12 +6,13 @@
 
 int main()
 {
-  waitcnt(CNT + CLKFREQ); // Wait one second. 157 0x35  141 0x15
+  waitcnt(CNT + CLKFREQ);
 
   xbeeInit();
-
   imuInit();
+
   cog_run(&imuRun, 1);
+  cog_run(&xbeeRun, 2);
 
   signed short gx,gy,gz,ax,ay,az;
   
