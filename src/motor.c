@@ -6,6 +6,20 @@
 
 void motorRun()
 {
+  while(1)
+  {
+    int signal = xbeeGetByte();
+    if (signal == 0x01)
+      motorWakeup();
+    else if (signal == 0x02)
+      motorRun();
+    else if (signal == 0x03)
+      motorStop();
+  }
+}
+
+void motorGo()
+{
   pwm_set(4, 0, 2000);
 }
 
