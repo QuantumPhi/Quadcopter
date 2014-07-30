@@ -6,8 +6,10 @@
 
 void motorRun(int pin, double speed)
 {
-  pwm_start(2083);
-  pwm_set(4, 0, 1958);
+  pwm_start(20000);
+  pwm_set(4, 0, 1000);
+  waitcnt(CNT + CLKFREQ*5);
+  pwm_set(4, 0, 2000);
   //run(8000);
 }
 

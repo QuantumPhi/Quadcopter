@@ -6,9 +6,14 @@
 
 int main()
 {
+  //xbeeInit();
+
+  //while(1)
+  //{
+//
+  //}
   //waitcnt(CNT + CLKFREQ);
 
-  //xbeeInit();
   //imuInit();
 //
   //cog_run(&imuRun, 1);
