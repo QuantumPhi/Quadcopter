@@ -4,13 +4,20 @@
 #include <propeller.h>
 #include <stdio.h>
 
-void motorRun(int pin, double speed)
+void motorRun()
+{
+  pwm_set(4, 0, 2000);
+}
+
+void motorStop()
+{
+  pwm_set(4, 0, 1000);
+}
+
+void motorWakeup()
 {
   pwm_start(20000);
   pwm_set(4, 0, 1000);
-  waitcnt(CNT + CLKFREQ*5);
-  pwm_set(4, 0, 2000);
-  //run(8000);
 }
 
 void run(int pulse)
