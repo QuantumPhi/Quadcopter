@@ -6,7 +6,9 @@
 
 void motorRun(int pin, double speed)
 {
-  run(8000);
+  pwm_start(2083);
+  pwm_set(4, 0, 1958);
+  //run(8000);
 }
 
 void run(int pulse)
