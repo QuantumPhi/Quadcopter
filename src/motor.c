@@ -6,6 +6,19 @@
 
 void motorRun(int pin, double speed)
 {
-  pwm_start(20);
-  pwm_set(pin, 0, speed*20);
+  set_direction(4, 1);
+  run();
+}
+
+void run()
+{
+  int temp;
+  while(1)
+  {
+    temp = CNT;
+    set_output(4, 0);
+    waitcnt(temp + CLKFREQ*0.0015);
+    set_output(4, 1);
+    waitcnt(temp + CLKFREQ*0.02); // 50hz
+  }
 }
