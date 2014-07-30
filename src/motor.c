@@ -6,7 +6,7 @@
 
 void motorRun(int pin, double speed)
 {
-  run(1);
+  run(8000);
 }
 
 void run(int pulse)
@@ -17,8 +17,8 @@ void run(int pulse)
   {
     temp = CNT;
     low(4);
-    waitcnt(CNT + pulse*CLKFREQ/1000);
+    waitcnt(temp + CLKFREQ/pulse);
     high(4);
-    waitcnt(CNT + CLKFREQ/50); // 50hz
+    waitcnt(temp + CLKFREQ/480); // 50hz
   }
 }
