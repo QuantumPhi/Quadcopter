@@ -12,8 +12,8 @@ int main()
 
   //imuInit();
   //cog_run(&imuRun, 1);
-  signed short gx,gy,gz,ax,ay,az;
-  
+  //signed short gx,gy,gz,ax,ay,az;
+  //
   //while(1)
   //{
   //  waitcnt(CNT + CLKFREQ/10);

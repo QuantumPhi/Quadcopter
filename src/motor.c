@@ -12,31 +12,30 @@ void motorRun()
     if (signal == 0x01)
       motorWakeup();
     else if (signal == 0x02)
-      motorGo();
+      motorGo(1);
     else if (signal == 0x03)
       motorStop();
   }
 }
-
-void motorGo()
+ 
+void motorGo(double speed)
 {
-  pwm_set(4, 0, 2000);
+  pwm_set(4, 0, (MOTOR_HIGH-MOTOR_LOW)*speed + MOTOR_LOW);
 }
 
 void motorStop()
 {
-  pwm_set(4, 0, 1000);
+  pwm_set(4, 0, MOTOR_START);
 }
 
 void motorWakeup()
 {
   pwm_start(20000);
-  pwm_set(4, 0, 1000);
+  pwm_set(4, 0, MOTOR_START);
 }
 
 void run(int pulse)
 {
-  //printf("%d\n", pulse);
   int temp;
   for(int i=0;i<150+300;i++)
   {
