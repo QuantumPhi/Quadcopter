@@ -6,7 +6,7 @@
 
 int main()
 {
-  waitcnt(CNT + CLKFREQ);
+  //waitcnt(CNT + CLKFREQ);
 
   //xbeeInit();
   //imuInit();

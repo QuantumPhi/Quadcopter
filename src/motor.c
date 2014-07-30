@@ -6,19 +6,19 @@
 
 void motorRun(int pin, double speed)
 {
-  set_direction(4, 1);
-  run();
+  run(1);
 }
 
-void run()
+void run(int pulse)
 {
+  //printf("%d\n", pulse);
   int temp;
-  while(1)
+  for(int i=0;i<150+300;i++)
   {
     temp = CNT;
-    set_output(4, 0);
-    waitcnt(temp + CLKFREQ*0.0015);
-    set_output(4, 1);
-    waitcnt(temp + CLKFREQ*0.02); // 50hz
+    low(4);
+    waitcnt(CNT + pulse*CLKFREQ/1000);
+    high(4);
+    waitcnt(CNT + CLKFREQ/50); // 50hz
   }
 }
