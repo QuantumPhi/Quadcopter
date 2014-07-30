@@ -25,6 +25,21 @@
 #define MOTOR_LOW   1100
 #define MOTOR_HIGH  2000
 
+#define COMMAND_WAKEUP   0x01
+#define COMMAND_FORWARD  0x02
+#define COMMAND_BACKWARD 0x03
+#define COMMAND_HOVER    0x04
+#define COMMAND_DOWN     0x05
+#define COMMAND_UP       0x06
+#define COMMAND_CCW      0x07
+#define COMMAND_CW       0x08
+#define COMMAND_RIGHT    0x09
+#define COMMAND_LEFT     0x0A
+#define COMMAND_SHUTDOWN 0x0B
+#define COMMAND_REQUEST  0x0C
+#define COMMAND_TAKEOFF  0x0D
+#define COMMAND_LAND     0x0E
+
 unsigned short readFromRegister(i2c*, int, int);
 void writeToRegister(i2c*, int, int, int);
 unsigned short readValue(i2c*, int, int, int);

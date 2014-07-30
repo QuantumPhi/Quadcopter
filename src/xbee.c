@@ -37,7 +37,7 @@ unsigned int xbeeGetByte()
     current = input(PIN_XBEE_IN);
     currentByte += current<<i;
   }
-
+  
   return currentByte;
 }
 
