@@ -12,7 +12,7 @@ void motorRun()
     if (signal == 0x01)
       motorWakeup();
     else if (signal == 0x02)
-      motorRun();
+      motorGo();
     else if (signal == 0x03)
       motorStop();
   }
