@@ -3,11 +3,13 @@
 #include <propeller.h>
 #include <stdio.h>
 
-#define PIN_IMU_SDA  0
-#define PIN_IMU_SCL  1
-#define PIN_MOTOR    4
-#define PIN_XBEE_IN  30
-#define PIN_XBEE_OUT 29
+#define PIN_IMU_SDA    0
+#define PIN_IMU_SCL    1
+#define PIN_MOTOR      4
+#define PIN_XBEE_IN    30
+#define PIN_XBEE_OUT   29
+#define PIN_RANGE_TRIG 14
+#define PIN_RANGE_ECHO 15
 
 #define GYRO_ADDR  0xD0
 #define GYRO_REG_X 0x1D
@@ -45,6 +47,7 @@
 #define PARAM_AUTON 0x02
 
 volatile unsigned int lastCommand;
+volatile unsigned int distanceToGround;
 
 unsigned short read_from_register(i2c*, int, int);
 void write_to_register(i2c*, int, int, int);
