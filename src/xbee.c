@@ -4,20 +4,18 @@
 #include <propeller.h>
 #include <stdio.h>
 
-void xbeeInit()
+void xbee_init()
 {
   high(PIN_XBEE_OUT);
 }
 
-volatile unsigned int lastCommand;
-
-void xbeeRun()
+void xbee_run()
 {
   while(1)
-    lastCommand = xbeeGetByte();
+    lastCommand = xbee_get_byte();
 }
 
-unsigned int xbeeGetByte()
+unsigned int xbee_get_byte()
 {
   int current = 1;
 
@@ -41,7 +39,7 @@ unsigned int xbeeGetByte()
   return currentByte;
 }
 
-void xbeeSendByte(unsigned int byte)
+void xbee_send_byte(unsigned int byte)
 {
   waitcnt(CNT + CLKFREQ/XBEE_BAUD_RATE);
   low(PIN_XBEE_OUT);

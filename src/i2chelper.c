@@ -4,7 +4,7 @@
 #include <propeller.h>
 #include <stdio.h>
 
-unsigned short readValue(i2c* bus, int address, int regAddr, int sb)
+unsigned short read_value(i2c* bus, int address, int regAddr, int sb)
 {
   i2c_start(bus);
   i2c_writeByte(bus, address);
@@ -26,7 +26,7 @@ unsigned short readValue(i2c* bus, int address, int regAddr, int sb)
   return val;
 }
 
-unsigned short readFromRegister(i2c* bus, int address, int regAddr)
+unsigned short read_from_register(i2c* bus, int address, int regAddr)
 {
   i2c_start(bus);
   i2c_writeByte(bus, address);
@@ -45,7 +45,7 @@ unsigned short combine(char h, char l) {
   return (h<<8)|l;
 }
 
-void writeToRegister(i2c* bus, int address, int regAddr, int val)
+void write_to_register(i2c* bus, int address, int regAddr, int val)
 {
   i2c_start(bus);
   i2c_writeByte(bus, address);

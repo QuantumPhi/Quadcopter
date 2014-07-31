@@ -44,27 +44,29 @@
 #define PARAM_POWER 0x01
 #define PARAM_AUTON 0x02
 
-unsigned short readFromRegister(i2c*, int, int);
-void writeToRegister(i2c*, int, int, int);
-unsigned short readValue(i2c*, int, int, int);
+volatile unsigned int lastCommand;
+
+unsigned short read_from_register(i2c*, int, int);
+void write_to_register(i2c*, int, int, int);
+unsigned short read_value(i2c*, int, int, int);
 unsigned short combine(char, char);
 
-void imuInit();
-void imuUpdate();
-int computePID(int, int);
-void imuRun();
-void getImuData(signed short*, signed short*, signed short*, signed short*, signed short*, signed short*);
+void imu_init();
+void imu_update();
+int compute_pid(int, int);
+void imu_run();
+void get_imu_data(signed short*, signed short*, signed short*, signed short*, signed short*, signed short*);
 
-void xbeeInit();
-void xbeeRun();
-unsigned int xbeeGetByte();
-void xbeeSendByte(unsigned int);
+void xbee_init();
+void xbee_run();
+unsigned int xbee_get_byte();
+void xbee_send_byte(unsigned int);
 
-void motorInit();
-void motorRun();
-void motorGo(double);
-void motorWakeup();
-void motorStop();
+void motor_init();
+void motor_run();
+void motor_go(double);
+void motor_wakeup();
+void motor_stop();
 
 typedef struct
 {

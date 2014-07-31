@@ -4,36 +4,36 @@
 #include <propeller.h>
 #include <stdio.h>
 
-void motorInit()
+void motor_init()
 {
 
 }
 
-void motorRun()
+void motor_run()
 {
   while(1)
   {
     int signal = lastCommand;
     if (signal == 0x01)
-      motorWakeup();
+      motor_wakeup();
     else if (signal == 0x02)
-      motorGo(1);
+      motor_go(1);
     else if (signal == 0x03)
-      motorStop();
+      motor_stop();
   }
 }
  
-void motorGo(double speed)
+void motor_go(double speed)
 {
   pwm_set(4, 0, (MOTOR_HIGH-MOTOR_LOW)*speed + MOTOR_LOW);
 }
 
-void motorStop()
+void motor_stop()
 {
   pwm_set(4, 0, MOTOR_START);
 }
 
-void motorWakeup()
+void motor_wakeup()
 {
   pwm_start(20000);
   pwm_set(4, 0, MOTOR_START);
