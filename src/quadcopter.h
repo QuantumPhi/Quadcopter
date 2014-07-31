@@ -70,9 +70,6 @@ void xbee_send_byte(unsigned int);
 
 void motor_init();
 void motor_run();
-void motor_go(double);
-void motor_wakeup();
-void motor_stop();
 
 void ultrasonic_run();
 
