@@ -48,13 +48,13 @@ void motor_run()
 
 void quad_land() {
   for (int i=0;i<4;i++)
-    motors[i]->current_val = 1100;
+    motors[i]->current_val = MOTOR_HOVER - 100;
 }
 
 void quad_takeoff()
 {
   for (int i=0;i<4;i++)
-    motors[i]->current_val = 1200;
+    motors[i]->current_val = MOTOR_HOVER + 100;
 }
 
 void quad_wakeup()

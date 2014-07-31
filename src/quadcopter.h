@@ -28,6 +28,7 @@
 
 #define MOTOR_START 1000
 #define MOTOR_LOW   1100
+#define MOTOR_HOVER 1200
 #define MOTOR_HIGH  2000
 
 #define COMMAND_WAKEUP   0x10 // 1
