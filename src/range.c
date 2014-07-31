@@ -15,7 +15,7 @@ void ultrasonic_run()
     int duration = pulse_in(PIN_RANGE_ECHO, 1)/58;
 
     if (duration > 400)
-      duration = 400
+      duration = 400;
     range = duration;
     waitcnt(CNT + CLKFREQ/17);
   }

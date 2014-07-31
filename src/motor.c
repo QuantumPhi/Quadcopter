@@ -4,9 +4,23 @@
 #include <propeller.h>
 #include <stdio.h>
 
+Axis axisX;
+Axis axisY;
+Axis axisZ;
+
+Motor fr = { .pin = PIN_MOTOR_FR, .current_val = 0 };
+Motor fl = { .pin = PIN_MOTOR_FL, .current_val = 0 };
+Motor br = { .pin = PIN_MOTOR_BR, .current_val = 0 };
+Motor bl = { .pin = PIN_MOTOR_BL, .current_val = 0 };
+
+Motor* motors[4];
+
 void motor_init()
 {
-
+  motors[0] = &fr;
+  motors[1] = &fl;
+  motors[2] = &br;
+  motors[3] = &bl;
 }
 
 void motor_run()
