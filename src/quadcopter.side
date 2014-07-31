@@ -6,6 +6,7 @@ i2chelper.c
 quadcopter.h
 xbee.c
 motor.c
+ultrasound.c
 >compiler=C
 >memtype=cmm main ram compact
 >optimize=-Os

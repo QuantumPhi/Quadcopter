@@ -79,5 +79,5 @@ typedef struct
 typedef struct
 {
   int pin;
-  int current;
+  int current_val;
 } motor;
