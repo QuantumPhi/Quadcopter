@@ -10,6 +10,8 @@
 void quad_wakeup();
 void quad_takeoff();
 void quad_land();
+void quad_shutdown();
+
 void pwm_run();
 
 Axis axisX;
@@ -43,21 +45,29 @@ void motor_run()
       quad_takeoff();
     else if (signal == COMMAND_LAND)
       quad_land();
+    else if (signal == COMMAND_SHUTDOWN)
+      quad_shutdown();
   }
 }
 
 void quad_land() {
   for (int i=0;i<4;i++)
-    motors[i]->current_val = MOTOR_HOVER - 100;
+    motors[i]->current_val = MOTOR_HOVER - clamp(0, 100-range, 100);
 }
 
 void quad_takeoff()
 {
   for (int i=0;i<4;i++)
-    motors[i]->current_val = MOTOR_HOVER + 100;
+    motors[i]->current_val = MOTOR_HOVER + clamp(0, 100-range, 100);
 }
 
 void quad_wakeup()
+{
+  for (int i=0;i<4;i++)
+    motors[i]->current_val = 1000;
+}
+
+void quad_shutdown()
 {
   for (int i=0;i<4;i++)
     motors[i]->current_val = 1000;
@@ -91,4 +101,9 @@ void pwm_run()
 
     waitcnt(startTmp + CLKFREQ/50);
   }
+}
+
+int clamp(int l, int n, int h)
+{
+  return n<l?l:(n>h?h:n);
 }

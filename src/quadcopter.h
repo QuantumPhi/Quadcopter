@@ -74,6 +74,8 @@ void motor_run();
 
 void ultrasonic_run();
 
+int clamp(int, int, int);
+
 typedef struct
 {
   int raw;
