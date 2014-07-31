@@ -4,21 +4,16 @@
 #include <propeller.h>
 #include <stdio.h>
 
-int motorFL;
-int motorFR;
-int motorBL;
-int motorBR;
-
 void motorInit()
 {
-  
+
 }
 
 void motorRun()
 {
   while(1)
   {
-    int signal = xbeeGetByte();
+    int signal = lastCommand;
     if (signal == 0x01)
       motorWakeup();
     else if (signal == 0x02)

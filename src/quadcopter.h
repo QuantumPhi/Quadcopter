@@ -65,3 +65,17 @@ void motorRun();
 void motorGo(double);
 void motorWakeup();
 void motorStop();
+
+typedef struct
+{
+  int raw;
+  int errSum;
+  int lastErr;
+  int output;
+} axis;
+
+typedef struct
+{
+  int pin;
+  int current;
+} motor;
