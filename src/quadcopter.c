@@ -8,10 +8,11 @@ int main()
 {
   xbee_init();
 
-  cog_run(&motor_run, 0);
+  cog_run(&ultrasonic_run, 0);
+  cog_run(&motor_run, 1);
 
   imu_init();
-  cog_run(&imu_run, 1);
+  cog_run(&imu_run, 2);
   signed short gx,gy,gz,ax,ay,az;
   
   while(1)

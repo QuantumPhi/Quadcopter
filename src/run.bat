@@ -1,2 +1,2 @@
-call propeller-load -r quadcopter.elf
+call propeller-load -r cmm/quadcopter.elf
 

@@ -8,8 +8,8 @@
 #define PIN_MOTOR      4
 #define PIN_XBEE_IN    30
 #define PIN_XBEE_OUT   29
-#define PIN_RANGE_TRIG 14
-#define PIN_RANGE_ECHO 15
+#define PIN_RANGE_TRIG 7
+#define PIN_RANGE_ECHO 8
 
 #define GYRO_ADDR  0xD0
 #define GYRO_REG_X 0x1D
@@ -47,7 +47,7 @@
 #define PARAM_AUTON 0x02
 
 volatile unsigned int lastCommand;
-volatile unsigned int distanceToGround;
+volatile unsigned int range;
 
 unsigned short read_from_register(i2c*, int, int);
 void write_to_register(i2c*, int, int, int);
@@ -70,6 +70,8 @@ void motor_run();
 void motor_go(double);
 void motor_wakeup();
 void motor_stop();
+
+void ultrasonic_run();
 
 typedef struct
 {

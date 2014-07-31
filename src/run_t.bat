@@ -1,1 +1,1 @@
-propeller-load -r -t quadcopter.elf
+propeller-load -r -t cmm/quadcopter.elf
