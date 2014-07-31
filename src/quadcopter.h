@@ -25,20 +25,24 @@
 #define MOTOR_LOW   1100
 #define MOTOR_HIGH  2000
 
-#define COMMAND_WAKEUP   0x01
-#define COMMAND_FORWARD  0x02
-#define COMMAND_BACKWARD 0x03
-#define COMMAND_HOVER    0x04
-#define COMMAND_DOWN     0x05
-#define COMMAND_UP       0x06
-#define COMMAND_CCW      0x07
-#define COMMAND_CW       0x08
-#define COMMAND_RIGHT    0x09
-#define COMMAND_LEFT     0x0A
-#define COMMAND_SHUTDOWN 0x0B
-#define COMMAND_REQUEST  0x0C
-#define COMMAND_TAKEOFF  0x0D
-#define COMMAND_LAND     0x0E
+#define COMMAND_WAKEUP   0x10 // 1
+#define COMMAND_FORWARD  0x20 // P
+#define COMMAND_BACKWARD 0x30 // P
+#define COMMAND_HOVER    0x40 // 1
+#define COMMAND_DOWN     0x50 // P
+#define COMMAND_UP       0x60 // P
+#define COMMAND_CCW      0x70 // P
+#define COMMAND_CW       0x80 // P
+#define COMMAND_RIGHT    0x90 // P
+#define COMMAND_LEFT     0xA0 // P
+#define COMMAND_SHUTDOWN 0xB0 // 1
+#define COMMAND_REQUEST  0xC0 // 1
+#define COMMAND_TAKEOFF  0xD0 // A
+#define COMMAND_LAND     0xE0 // A
+
+#define PARAM_ONCE  0x00
+#define PARAM_POWER 0x01
+#define PARAM_AUTON 0x02
 
 unsigned short readFromRegister(i2c*, int, int);
 void writeToRegister(i2c*, int, int, int);
