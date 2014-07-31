@@ -4,6 +4,16 @@
 #include <propeller.h>
 #include <stdio.h>
 
+int motorFL;
+int motorFR;
+int motorBL;
+int motorBR;
+
+void motorInit()
+{
+  
+}
+
 void motorRun()
 {
   while(1)
@@ -32,17 +42,4 @@ void motorWakeup()
 {
   pwm_start(20000);
   pwm_set(4, 0, MOTOR_START);
-}
-
-void run(int pulse)
-{
-  int temp;
-  for(int i=0;i<150+300;i++)
-  {
-    temp = CNT;
-    low(4);
-    waitcnt(temp + CLKFREQ/pulse);
-    high(4);
-    waitcnt(temp + CLKFREQ/480); // 50hz
-  }
 }

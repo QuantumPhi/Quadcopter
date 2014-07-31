@@ -60,6 +60,7 @@ void xbeeRun();
 unsigned int xbeeGetByte();
 void xbeeSendByte(unsigned int);
 
+void motorInit();
 void motorRun();
 void motorGo(double);
 void motorWakeup();
