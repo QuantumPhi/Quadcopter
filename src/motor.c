@@ -52,13 +52,13 @@ void motor_run()
 
 void quad_land() {
   for (int i=0;i<4;i++)
-    motors[i]->current_val = MOTOR_HOVER - clamp(0, 100-range, 100);
+    motors[i]->current_val = MOTOR_HOVER - 5*clamp(0, 100-range, 100);
 }
 
 void quad_takeoff()
 {
   for (int i=0;i<4;i++)
-    motors[i]->current_val = MOTOR_HOVER + clamp(0, 100-range, 100);
+    motors[i]->current_val = MOTOR_HOVER + 5*clamp(0, 100-range, 100);
 }
 
 void quad_wakeup()
