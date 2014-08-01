@@ -82,7 +82,7 @@ typedef struct
   int errSum;
   int lastErr;
   int output;
-} Axis;
+} PID;
 
 typedef struct
 {

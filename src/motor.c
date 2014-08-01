@@ -11,12 +11,13 @@ void quad_wakeup();
 void quad_takeoff();
 void quad_land();
 void quad_shutdown();
+void quad_hover();
 
 void pwm_run();
 
-Axis axisX;
-Axis axisY;
-Axis axisZ;
+PID axisX;
+PID axisY;
+PID axisZ;
 
 volatile Motor fr = { .pin = PIN_MOTOR_FR, .current_val = 1000 };
 volatile Motor fl = { .pin = PIN_MOTOR_FL, .current_val = 1000 };
@@ -47,10 +48,18 @@ void motor_run()
       quad_land();
     else if (signal == COMMAND_SHUTDOWN)
       quad_shutdown();
+    else if (signal == COMMAND_HOVER)
+      quad_hover();
   }
 }
 
-void quad_land() {
+void quad_hover()
+{
+  
+}
+
+void quad_land()
+{
   for (int i=0;i<4;i++)
     motors[i]->current_val = MOTOR_HOVER - 5*clamp(0, 100-range, 100);
 }
