@@ -1,6 +1,14 @@
 Quadcopter
 ==========
 
-A quadcopter built and programmed at StudentRND Labs.
+A quadcopter built and programmed at [StudentRND Labs](https://labs.studentrnd.org/).
 
-I'll dump the code, parts, and images here.
+===
+
+Team:
+
+|    Members    |   Specialty   |
+| ------------- | ------------- |
+| Shreyas       | Programming   |
+| Daniel        | Hardware      |
+| Connor        | Electronics   |
