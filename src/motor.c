@@ -15,10 +15,6 @@ void quad_hover();
 
 void pwm_run();
 
-PID axisX;
-PID axisY;
-PID axisZ;
-
 volatile Motor fr = { .pin = PIN_MOTOR_FR, .current_val = 1000 };
 volatile Motor fl = { .pin = PIN_MOTOR_FL, .current_val = 1000 };
 volatile Motor br = { .pin = PIN_MOTOR_BR, .current_val = 1000 };

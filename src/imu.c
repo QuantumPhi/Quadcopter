@@ -6,18 +6,27 @@
 
 i2c imu;
 
-volatile signed short gx;
-volatile signed short gy;
-volatile signed short gz;
-volatile signed short ax;
-volatile signed short ay;
-volatile signed short az;
+volatile Gyro g;
+volatile Accel a;
+
 volatile int lock;
+unsigned long last;
+
+void imu_run()
+{
+  while(1)
+  {
+    last = CNT;
+    waitcnt(CNT + CLKFREQ/10);
+    imu_update();
+  }
+}
 
 void imu_init()
 {
   lock = 0;
   i2c_open(&imu, PIN_IMU_SCL, PIN_IMU_SDA, 0);
+
   // Gyro initialization.
   // 22 -> 11011  Set internal clock and scale.
   // 21 -> 9      Set sample rate.
@@ -30,30 +39,27 @@ void imu_init()
   
   // Accel initialization.
   // 45 -> 1000, 100  Wake it from sleep, keep it awake.
-  // 49 -> 01    Set the data range. 00->2, 01->4, 10->8, 11->16 (+- g).;
+  // 49 -> 01    Set the data range. 00->2, 01->4, 10->8, 11->16 (+- g).
   write_to_register(&imu, ACCL_ADDR, 0x2D, 16);
   write_to_register(&imu, ACCL_ADDR, 0x2D, 8);
-  write_to_register(&imu, ACCL_ADDR, 0x31, 0);
-  //writeToRegister(&imu, ACCL_ADDR, 0x1E, -25/-4); -25
+  write_to_register(&imu, ACCL_ADDR, 0x31, 0); // Might need to change this later.
+  //writeToRegister(&imu, ACCL_ADDR, 0x1E, -25/-4); -25 // Tuning values.
   //writeToRegister(&imu, ACCL_ADDR, 0x1F, 12/-4);   12
   //writeToRegister(&imu, ACCL_ADDR, 0x20, 249/4);  249
 }
-
-unsigned long last;
 
 void imu_update()
 {
   while(lock==1);
   lock = 1;
-  gx = (signed short) read_value(&imu, GYRO_ADDR, GYRO_REG_X, 0);
-  gy = (signed short) read_value(&imu, GYRO_ADDR, GYRO_REG_Y, 0);
-  gz = (signed short) read_value(&imu, GYRO_ADDR, GYRO_REG_Z, 0);
 
-  ax = (signed short) read_value(&imu, ACCL_ADDR, ACCL_REG_X, 1);
-  ay = (signed short) read_value(&imu, ACCL_ADDR, ACCL_REG_Y, 1);
-  az = (signed short) read_value(&imu, ACCL_ADDR, ACCL_REG_Z, 1);
+  g.x.raw = (signed short) read_value(&imu, GYRO_ADDR, GYRO_REG_X, 0);
+  g.y.raw = (signed short) read_value(&imu, GYRO_ADDR, GYRO_REG_Y, 0);
+  g.z.raw = (signed short) read_value(&imu, GYRO_ADDR, GYRO_REG_Z, 0);
 
-  int max = compute_pid(ax, 0);
+  a.x.raw = (signed short) read_value(&imu, ACCL_ADDR, ACCL_REG_X, 1);
+  a.y.raw = (signed short) read_value(&imu, ACCL_ADDR, ACCL_REG_Y, 1);
+  a.z.raw = (signed short) read_value(&imu, ACCL_ADDR, ACCL_REG_Z, 1);
 
   lock = 0;
 }
@@ -76,28 +82,4 @@ int compute_pid(int actualVal, int expectedVal)
   lastErr = error;
 
   return output;
-}
-
-void get_imu_data(signed short* ngx, signed short* ngy, signed short* ngz, signed short* nax, signed short* nay, signed short* naz)
-{
-  while(lock==1);
-  lock = 1;
-  *ngx = gx;
-  *ngy = gy;
-  *ngz = gz;
-
-  *nax = ax;
-  *nay = ay;
-  *naz = az;
-  lock = 0;
-}
-
-void imu_run()
-{
-  while(1)
-  {
-    last = CNT;
-    waitcnt(CNT + CLKFREQ/10);
-    imu_update();
-  }
 }

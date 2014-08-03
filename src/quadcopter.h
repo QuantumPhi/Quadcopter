@@ -24,6 +24,8 @@
 #define ACCL_REG_Y 0x34
 #define ACCL_REG_Z 0x36
 
+#define GRAVITY 9.8 // needs to be in accel format (currently m/s/s ish)
+
 #define XBEE_BAUD_RATE 9600
 
 #define MOTOR_START 1000
@@ -89,3 +91,28 @@ typedef struct
   int pin;
   int current_val;
 } Motor;
+
+typedef struct
+{
+  int raw;
+  int pitch;
+} AccelRaw;
+
+typedef struct
+{
+  int raw;
+} GyroRaw;
+
+typedef struct
+{
+  GyroRaw x;
+  GyroRaw y;
+  GyroRaw z;
+} Gyro;
+
+typedef struct
+{
+  AccelRaw x;
+  AccelRaw y;
+  AccelRaw z;
+} Accel;
