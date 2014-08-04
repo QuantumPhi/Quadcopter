@@ -23,6 +23,7 @@
 
 #define GRAVITY 9.8 // needs to be in accel format (currently m/s/s ish)
 #define GYRO_FILTER_ALPHA 0.5 // Alpha value of low pass filter
+#define ACCEL_FILTER_ALPHA 0.5
 
 #define XBEE_BAUD_RATE 9600
 
@@ -108,7 +109,9 @@ typedef struct
 typedef struct
 {
   int raw;
-  int filter;
+  int last[3];
+  int sum;
+  int angle;
 } GyroRaw;
 
 typedef struct

@@ -64,6 +64,28 @@ void imu_update()
   
   a.roll = atan2(-a.y.filter, a.z.filter);
   a.pitch = atan2(a.x.filter, sqrt(a.y.filter*a.y.filter + a.z.filter*a.z.filter));
+
+  g.x.sum += g.x.raw;
+  g.y.sum += g.y.raw;
+  g.z.sum += g.z.raw;
+
+  // 1⁄6 ( vali-3 + 2 vali-2 + 2 vali-1 + vali)
+
+  g.x.sum += (g.x.last[2] + 2*g.x.last[1] + 2*g.x.last[0] + g.x.raw)/6;
+  g.y.sum += (g.y.last[2] + 2*g.y.last[1] + 2*g.y.last[0] + g.y.raw)/6;
+  g.z.sum += (g.z.last[2] + 2*g.z.last[1] + 2*g.z.last[0] + g.z.raw)/6;
+
+  g.x.last[2] = g.x.last[1];
+  g.x.last[1] = g.x.last[0];
+  g.x.last[0] = g.x.raw;
+
+  g.y.last[2] = g.y.last[1];
+  g.y.last[1] = g.y.last[0];
+  g.y.last[0] = g.y.raw;
+
+  g.z.last[2] = g.z.last[1];
+  g.z.last[1] = g.z.last[0];
+  g.z.last[0] = g.z.raw;
   
   lock = 0;
 }
