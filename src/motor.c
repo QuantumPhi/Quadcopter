@@ -1,8 +1,5 @@
 #include "quadcopter.h"
 #include "simpletools.h"
-#include "simplei2c.h"
-#include <propeller.h>
-#include <stdio.h>
 
 #define SWAP(x,y) if (newMotors[y]->current_val < newMotors[x]->current_val) { volatile Motor* tmp = newMotors[x]; newMotors[x] = newMotors[y]; newMotors[y] = tmp; }
 #define PWM_CYCLE 20000

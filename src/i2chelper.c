@@ -1,8 +1,5 @@
 #include "quadcopter.h"
 #include "simpletools.h"
-#include "simplei2c.h"
-#include <propeller.h>
-#include <stdio.h>
 
 unsigned short read_value(i2c* bus, int address, int regAddr, int sb)
 {

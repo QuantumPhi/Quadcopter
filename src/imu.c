@@ -1,9 +1,5 @@
 #include "quadcopter.h"
 #include "simpletools.h"
-#include "simplei2c.h"
-#include "math.h"
-#include <propeller.h>
-#include <stdio.h>
 
 i2c imu;
 

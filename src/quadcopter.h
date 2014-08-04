@@ -1,7 +1,4 @@
 #include "simpletools.h"
-#include "simplei2c.h"
-#include <propeller.h>
-#include <stdio.h>
 
 #define PIN_IMU_SDA    0
 #define PIN_IMU_SCL    1
