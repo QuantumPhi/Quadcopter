@@ -1,6 +1,7 @@
 #include "quadcopter.h"
 #include "simpletools.h"
 #include "simplei2c.h"
+#include "math.h"
 #include <propeller.h>
 #include <stdio.h>
 
@@ -61,6 +62,13 @@ void imu_update()
   a.y.raw = (signed short) read_value(&imu, ACCL_ADDR, ACCL_REG_Y, 1);
   a.z.raw = (signed short) read_value(&imu, ACCL_ADDR, ACCL_REG_Z, 1);
 
+  a.x.filter = a.x.raw*GYRO_FILTER_ALPHA + a.x.filter*(1-GYRO_FILTER_ALPHA);
+  a.y.filter = a.y.raw*GYRO_FILTER_ALPHA + a.y.filter*(1-GYRO_FILTER_ALPHA);
+  a.z.filter = a.z.raw*GYRO_FILTER_ALPHA + a.z.filter*(1-GYRO_FILTER_ALPHA);
+  
+  a.roll = atan2(-a.y.filter, a.z.filter);
+  a.pitch = atan2(a.x.filter, sqrt(a.y.filter*a.y.filter + a.z.filter*a.z.filter));
+  
   lock = 0;
 }
 

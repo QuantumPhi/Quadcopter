@@ -25,6 +25,7 @@
 #define ACCL_REG_Z 0x36
 
 #define GRAVITY 9.8 // needs to be in accel format (currently m/s/s ish)
+#define GYRO_FILTER_ALPHA 0.5 // Alpha value of low pass filter
 
 #define XBEE_BAUD_RATE 9600
 
@@ -95,12 +96,22 @@ typedef struct
 typedef struct
 {
   int raw;
-  int pitch;
+  int filter;
 } AccelRaw;
 
 typedef struct
 {
+  AccelRaw x;
+  AccelRaw y;
+  AccelRaw z;
+  int pitch;
+  int roll;
+} Accel;
+
+typedef struct
+{
   int raw;
+  int filter;
 } GyroRaw;
 
 typedef struct
@@ -109,10 +120,3 @@ typedef struct
   GyroRaw y;
   GyroRaw z;
 } Gyro;
-
-typedef struct
-{
-  AccelRaw x;
-  AccelRaw y;
-  AccelRaw z;
-} Accel;
